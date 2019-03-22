@@ -7,6 +7,8 @@ namespace FirstConsoleApp
     {
         public string Name { get; }
 
+        public int Power { get; set; }
+
         public CUser( string name )
         {
             Name = name;
@@ -18,6 +20,8 @@ namespace FirstConsoleApp
     struct SUser
     {
         public string Name { get; }
+
+        public int Power { get; set; }
 
         public SUser( string name )
         {
