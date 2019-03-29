@@ -30,9 +30,25 @@ namespace ITI.Collections
             }
         }
 
+        public void Clear()
+        {
+            if( _count > 0 )
+            {
+                if( !typeof(T).IsValueType )
+                {
+                    Array.Clear( _values, 0, _count );
+                }
+                _count = 0;
+            }
+        }
+
         public void Add( T item )
         {
-            _values[_count++] = item;
+            if( ++_count == _values.Length )
+            {
+                Array.Resize( ref _values, _count * 2 );
+            }
+            _values[_count-1] = item;
         }
     }
 }
