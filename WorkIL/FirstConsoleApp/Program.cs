@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Text;
 
 namespace FirstConsoleApp
@@ -52,13 +53,18 @@ namespace FirstConsoleApp
     {
         static void Main( string[] args )
         {
-            var cu = new CUser( "Spi" );
-            var su = new SUser( "Spi" );
-
             var acu = new CUser[100];
             var asu = new SUser[100];
 
+            var cu = new CUser( "Spi" );
+            var cu2 = cu;
+            cu.Power = 42;
+            Debug.Assert( cu2.Power == 42 );
 
+            var su = new SUser( "Spi" );
+            var su2 = su;
+            su.Power = 42;
+            Debug.Assert( su2.Power == 0 );
 
 
         }
