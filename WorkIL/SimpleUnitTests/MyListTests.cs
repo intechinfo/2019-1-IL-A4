@@ -54,7 +54,26 @@ namespace SimpleUnitTests
             {
                 Assert.That( item.Equals( 9 ) || item.Equals( "kilo" ) || item.Equals( 234.67 ) );
             }
+        }
 
+        [Test]
+        public void diectly_using_the_iterator()
+        {
+            var sut = new MyList<string>();
+            sut.Add( "One" );
+            sut.Add( "Two" );
+            sut.Add( "Three" );
+
+            var e = sut.GetEnumerator();
+            Assert.That( e.MoveNext() );
+            Assert.That( e.Current == "One" );
+            Assert.That( e.MoveNext() );
+            Assert.That( e.Current == "Two" );
+            Assert.That( e.MoveNext() );
+            Assert.That( e.Current == "Three" );
+            Assert.That( e.MoveNext() == false );
+            Assert.Throws<InvalidOperationException>( () => Console.Write( e.Current ) );
+            Assert.Throws<InvalidOperationException>( () => e.MoveNext() );
         }
     }
 }
