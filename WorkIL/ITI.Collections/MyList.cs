@@ -1,10 +1,11 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
 namespace ITI.Collections
 {
-    public class MyList<T>
+    public class MyList<T> : IEnumerable<T>
     {
         T[] _values;
         int _count;
@@ -30,6 +31,20 @@ namespace ITI.Collections
             }
         }
 
+        public void RemoveAt( int idx )
+        {
+
+        }
+
+        public void Insert( int idx, T item )
+        {
+            if( idx == _count ) Add( item );
+            else
+            {
+
+            }
+        }
+
         public void Clear()
         {
             if( _count > 0 )
@@ -50,5 +65,40 @@ namespace ITI.Collections
             }
             _values[_count-1] = item;
         }
+
+        class E : IEnumerator<T>
+        {
+            readonly MyList<T> _holder;
+
+            public E( MyList<T> holder )
+            {
+                _holder = holder;
+            }
+
+            public T Current => throw new NotImplementedException();
+
+            object IEnumerator.Current => Current;
+
+            public void Dispose()
+            {
+            }
+
+            public bool MoveNext()
+            {
+                throw new NotImplementedException();
+            }
+
+            public void Reset()
+            {
+                throw new NotSupportedException( "Don't do Reset anymore: just obtain a new Enumerator!" );
+            }
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            return new E( this );
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }

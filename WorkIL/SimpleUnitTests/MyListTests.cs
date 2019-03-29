@@ -41,5 +41,20 @@ namespace SimpleUnitTests
             sut.Clear();
             Assert.Throws<IndexOutOfRangeException>( () => Console.Write( sut[0] ) );
         }
+
+        [Test]
+        public void I_can_foreach_on_my_list()
+        {
+            var sut = new MyList<object>();
+            sut.Add( 9 );
+            sut.Add( "kilo" );
+            sut.Add( 234.67 );
+
+            foreach( var item in sut )
+            {
+                Assert.That( item.Equals( 9 ) || item.Equals( "kilo" ) || item.Equals( 234.67 ) );
+            }
+
+        }
     }
 }
