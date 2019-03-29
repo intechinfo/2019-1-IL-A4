@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 
@@ -66,7 +67,18 @@ namespace FirstConsoleApp
             su.Power = 42;
             Debug.Assert( su2.Power == 0 );
 
+            // With array:
+            asu[0].Power = 42;
+            Debug.Assert( asu[0].Power == 42 );
 
+            var lsu = new List<SUser>();
+            lsu.Add( new SUser( "In a list." ) );
+
+            // This NOW (newer C# version) is forbidden.
+            // But before...
+            // lsu[0].Power = 42;
+            // We'd have had 0 here instead of the expercted 42...
+            // Debug.Assert( lsu[0].Power == 0 );
         }
 
     }
