@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace FirstConsoleApp
+namespace ITI.Collections
 {
     public class MyList<T>
     {
