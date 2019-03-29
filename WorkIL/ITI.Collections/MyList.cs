@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 
 namespace ITI.Collections
@@ -69,13 +70,22 @@ namespace ITI.Collections
         class E : IEnumerator<T>
         {
             readonly MyList<T> _holder;
+            int _currentIdx;
 
             public E( MyList<T> holder )
             {
                 _holder = holder;
+                _currentIdx = -1;
             }
 
-            public T Current => throw new NotImplementedException();
+            public T Current
+            {
+                get
+                {
+                    if( _currentIdx >= _holder._count ) throw new InvalidOperationException();
+                    return _holder._values[_currentIdx];
+                }
+            }
 
             object IEnumerator.Current => Current;
 
@@ -85,7 +95,13 @@ namespace ITI.Collections
 
             public bool MoveNext()
             {
-                throw new NotImplementedException();
+                Debug.Assert( _currentIdx >= -1, "Initialized with -1 and always incremented." );
+                if( _currentIdx >= _holder._count ) throw new InvalidOperationException();
+                // Yes... this is enough.
+                return ++_currentIdx != _holder._count;
+                // This is clearly more readable:
+                // if( ++_currentIdx == _holder._count ) return false;
+                // return true;
             }
 
             public void Reset()
@@ -94,10 +110,7 @@ namespace ITI.Collections
             }
         }
 
-        public IEnumerator<T> GetEnumerator()
-        {
-            return new E( this );
-        }
+        public IEnumerator<T> GetEnumerator() => new E( this );
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
