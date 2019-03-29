@@ -26,7 +26,11 @@ namespace FirstConsoleApp
         public SUser( string name )
         {
             Name = name;
+            // For structs, all fields MUST be explicitly initialized.
+            // This is not the case for class...
+            Power = 0;
         }
+
         public override string ToString() => String.Format( " Struct {0}", Name );
     }
 
@@ -38,6 +42,8 @@ namespace FirstConsoleApp
             var cu = new CUser( "Spi" );
             var su = new SUser( "Spi" );
 
+            var acu = new CUser[100];
+            var asu = new SUser[100];
 
         }
 
