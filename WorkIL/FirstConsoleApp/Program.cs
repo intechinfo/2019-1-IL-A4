@@ -9,6 +9,11 @@ namespace FirstConsoleApp
 
         public int Power { get; set; }
 
+        public CUser()
+            : this( "Default Name" )
+        {
+        }
+
         public CUser( string name )
         {
             Name = name;
@@ -22,6 +27,14 @@ namespace FirstConsoleApp
         public string Name { get; }
 
         public int Power { get; set; }
+
+        // This is forbidden for performance reason.
+        //public SUser()
+        ////: this( "Default Name" )
+        //{
+        //    Power = 78;
+        //    Name = "Toto";
+        //}
 
         public SUser( string name )
         {
@@ -44,6 +57,9 @@ namespace FirstConsoleApp
 
             var acu = new CUser[100];
             var asu = new SUser[100];
+
+
+
 
         }
 
