@@ -6,7 +6,7 @@ using System.Text;
 
 namespace ITI.Collections
 {
-    public class MyList<T> : IEnumerable<T>
+    public class MyList<T> /*: IEnumerable<T>*/
     {
         T[] _values;
         int _count;
@@ -67,12 +67,12 @@ namespace ITI.Collections
             _values[_count-1] = item;
         }
 
-        class E : IEnumerator<T>
+        public struct Enumerator /*: IEnumerator<T>*/
         {
             readonly MyList<T> _holder;
             int _currentIdx;
 
-            public E( MyList<T> holder )
+            internal Enumerator( MyList<T> holder )
             {
                 _holder = holder;
                 _currentIdx = -1;
@@ -87,12 +87,6 @@ namespace ITI.Collections
                 }
             }
 
-            object IEnumerator.Current => Current;
-
-            public void Dispose()
-            {
-            }
-
             public bool MoveNext()
             {
                 Debug.Assert( _currentIdx >= -1, "Initialized with -1 and always incremented." );
@@ -103,15 +97,10 @@ namespace ITI.Collections
                 // if( ++_currentIdx == _holder._count ) return false;
                 // return true;
             }
-
-            public void Reset()
-            {
-                throw new NotSupportedException( "Don't do Reset anymore: just obtain a new Enumerator!" );
-            }
         }
 
-        public IEnumerator<T> GetEnumerator() => new E( this );
+        public Enumerator GetEnumerator() => new Enumerator( this );
 
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+        //IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }
