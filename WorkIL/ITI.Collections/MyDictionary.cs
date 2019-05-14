@@ -30,9 +30,13 @@ namespace ITI.Collections
 
         }
 
+        int GetHashCode( TKey key ) => Math.Abs( key.GetHashCode() );
+
+        bool Equals( TKey k1, TKey k2 ) => k1.Equals( k2 );
+
         public void Add( TKey key, TValue value )
         {
-            int h = key.GetHashCode();
+            int h = GetHashCode( key );
             int idx = h % _buckets.Length;
             Node n = FindInBucket( key, idx );
             if( n != null ) throw new InvalidOperationException();
@@ -43,7 +47,7 @@ namespace ITI.Collections
         {
             get
             {
-                int h = key.GetHashCode();
+                int h = GetHashCode( key );
                 int idx = h % _buckets.Length;
                 Node n = FindInBucket( key, idx );
                 if( n != null ) return n.Value;
@@ -51,7 +55,7 @@ namespace ITI.Collections
             }
             set
             {
-                int h = key.GetHashCode();
+                int h = GetHashCode( key );
                 int idx = h % _buckets.Length;
                 Node n = FindInBucket( key, idx );
                 if( n != null )
@@ -83,7 +87,7 @@ namespace ITI.Collections
             Node n = _buckets[idx];
             while( n != null )
             {
-                if( n.Key.Equals( key ) ) break;
+                if( Equals( n.Key, key ) ) break;
                 n = n.Next;
             }
             return n;

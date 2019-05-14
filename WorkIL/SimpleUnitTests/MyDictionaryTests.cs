@@ -43,7 +43,7 @@ namespace SimpleUnitTests
             d.Count.Should().Be( 3 );
 
             d.Remove( "Two" );
-            d.Count.Should().Be( 1 );
+            d.Count.Should().Be( 2 );
             d.Invoking( sut => sut.Remove( "Two" ) )
                 .Should().Throw<KeyNotFoundException>();
         }
