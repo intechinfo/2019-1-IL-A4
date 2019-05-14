@@ -130,9 +130,38 @@ namespace ITI.Collections
             return length * 2;
         }
 
+        class EE : IEnumerator<KeyValuePair<TKey, TValue>>
+        {
+            readonly MyDictionary<TKey, TValue> _holder;
+
+            public EE( MyDictionary<TKey, TValue> holder )
+            {
+                _holder = holder;
+            }
+
+            public KeyValuePair<TKey, TValue> Current => throw new NotImplementedException();
+
+            object IEnumerator.Current => Current;
+
+            public bool MoveNext()
+            {
+                throw new NotImplementedException();
+            }
+
+
+            public void Dispose()
+            {
+            }
+
+            public void Reset()
+            {
+                throw new NotSupportedException();
+            }
+        }
+
         public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
         {
-
+            return new EE( this );
         }
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
