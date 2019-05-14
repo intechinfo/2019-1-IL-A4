@@ -45,16 +45,23 @@ namespace SimpleUnitTests
             d.Remove( "Two" );
             d.Count.Should().Be( 2 );
             d.Invoking( sut => sut.Remove( "Two" ) )
-                .Should().Throw<KeyNotFoundException>();
+                .Should().NotThrow();
+            d.Count.Should().Be( 2 );
         }
 
         [Test]
         public void simple_dictionary_grow_triggered()
         {
             var d = new MyDictionary<int, int>();
-            for( int i = 0; i < 30; ++i )
+            for( int i = 0; i < 300; ++i )
             {
                 d.Add( i, i );
+            }
+            for( int i = 0; i < 300; ++i )
+            {
+                d[i].Should().Be( i );
+                d.Invoking( sut => Console.Write( sut[-i-1] ) )
+                    .Should().Throw<KeyNotFoundException>();
             }
         }
 

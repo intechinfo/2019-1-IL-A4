@@ -1,10 +1,11 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
 namespace ITI.Collections
 {
-    public class MyDictionary<TKey,TValue>
+    public class MyDictionary<TKey,TValue> : IReadOnlyCollection<KeyValuePair<TKey,TValue>>
     {
         int _count;
         Node[] _buckets;
@@ -32,6 +33,7 @@ namespace ITI.Collections
             var (p,f) = FindInBucket( key, idx );
             if( f != null )
             {
+                --_count;
                 if( p == null ) _buckets[idx] = f.Next;
                 else p.Next = f.Next;
             }
@@ -76,7 +78,7 @@ namespace ITI.Collections
         void AddNewKeyValue( TKey key, TValue value, int hashCode, int currentIdx )
         {
             int fillFactor = _count / _buckets.Length;
-            if( fillFactor > 2 )
+            if( fillFactor >= 2 )
             {
                 Grow();
                 currentIdx = hashCode % _buckets.Length;
@@ -106,9 +108,20 @@ namespace ITI.Collections
         {
             int newLength = NextPrimeNumber( _buckets.Length );
             var newBuckets = new Node[newLength];
-            //....
-
-            //....
+            Node n;
+            int idxB = 0;
+            while( idxB < _buckets.Length && (n = _buckets[idxB++]) != null )
+            {
+                do
+                {
+                    var next = n.Next;
+                    int idx = GetHashCode( n.Key ) % newBuckets.Length;
+                    n.Next = newBuckets[idx];
+                    newBuckets[idx] = n;
+                    n = next;
+                }
+                while( n != null ) ;
+            }
             _buckets = newBuckets;
        }
 
@@ -116,5 +129,12 @@ namespace ITI.Collections
         {
             return length * 2;
         }
+
+        public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
+        {
+
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }
