@@ -42,7 +42,6 @@ namespace ITI.Collections
             if( idx == _count ) Add( item );
             else
             {
-
             }
         }
 

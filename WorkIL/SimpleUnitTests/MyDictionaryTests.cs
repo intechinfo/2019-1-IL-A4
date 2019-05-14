@@ -47,5 +47,17 @@ namespace SimpleUnitTests
             d.Invoking( sut => sut.Remove( "Two" ) )
                 .Should().Throw<KeyNotFoundException>();
         }
+
+        [Test]
+        public void simple_dictionary_grow_triggered()
+        {
+            var d = new MyDictionary<int, int>();
+            for( int i = 0; i < 30; ++i )
+            {
+                d.Add( i, i );
+            }
+        }
+
     }
 }
+

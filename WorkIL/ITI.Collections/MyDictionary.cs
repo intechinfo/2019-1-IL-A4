@@ -27,7 +27,14 @@ namespace ITI.Collections
 
         public void Remove( TKey key )
         {
-
+            int h = GetHashCode( key );
+            int idx = h % _buckets.Length;
+            var (p,f) = FindInBucket( key, idx );
+            if( f != null )
+            {
+                if( p == null ) _buckets[idx] = f.Next;
+                else p.Next = f.Next;
+            }
         }
 
         int GetHashCode( TKey key ) => Math.Abs( key.GetHashCode() );
@@ -38,7 +45,7 @@ namespace ITI.Collections
         {
             int h = GetHashCode( key );
             int idx = h % _buckets.Length;
-            Node n = FindInBucket( key, idx );
+            Node n = FindInBucket( key, idx ).Found;
             if( n != null ) throw new InvalidOperationException();
             else AddNewKeyValue( key, value, h, idx );
         }
@@ -49,7 +56,7 @@ namespace ITI.Collections
             {
                 int h = GetHashCode( key );
                 int idx = h % _buckets.Length;
-                Node n = FindInBucket( key, idx );
+                Node n = FindInBucket( key, idx ).Found;
                 if( n != null ) return n.Value;
                 throw new KeyNotFoundException();
             }
@@ -57,7 +64,7 @@ namespace ITI.Collections
             {
                 int h = GetHashCode( key );
                 int idx = h % _buckets.Length;
-                Node n = FindInBucket( key, idx );
+                Node n = FindInBucket( key, idx ).Found;
                 if( n != null )
                 {
                     n.Value = value;
@@ -69,7 +76,7 @@ namespace ITI.Collections
         void AddNewKeyValue( TKey key, TValue value, int hashCode, int currentIdx )
         {
             int fillFactor = _count / _buckets.Length;
-            if( fillFactor > 20 )
+            if( fillFactor > 2 )
             {
                 Grow();
                 currentIdx = hashCode % _buckets.Length;
@@ -82,22 +89,28 @@ namespace ITI.Collections
             };
         }
 
-        Node FindInBucket( TKey key, int idx )
+        (Node Previous, Node Found) FindInBucket( TKey key, int idx )
         {
+            Node prev = null;
             Node n = _buckets[idx];
             while( n != null )
             {
                 if( Equals( n.Key, key ) ) break;
+                prev = n;
                 n = n.Next;
             }
-            return n;
+            return (prev,n);
         }
 
         void Grow()
         {
             int newLength = NextPrimeNumber( _buckets.Length );
+            var newBuckets = new Node[newLength];
+            //....
 
-        }
+            //....
+            _buckets = newBuckets;
+       }
 
         static int NextPrimeNumber( int length )
         {
