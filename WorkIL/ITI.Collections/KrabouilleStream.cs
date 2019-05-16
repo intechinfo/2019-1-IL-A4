@@ -5,11 +5,17 @@ using System.Text;
 
 namespace ITI.Collections
 {
+    public enum KrabouilleMode
+    {
+        Krabouille,
+        Unkrabouille
+    }
+
     public class KrabouilleStream : Stream
     {
         readonly Stream _inner;
 
-        public KrabouilleStream( Stream innerStream )
+        public KrabouilleStream( Stream innerStream, string passPhrase, KrabouilleMode mode )
         {
             _inner = innerStream;
         }
