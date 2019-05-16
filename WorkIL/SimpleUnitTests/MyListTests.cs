@@ -1,6 +1,7 @@
 using ITI.Collections;
 using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 
 namespace SimpleUnitTests
 {
@@ -75,5 +76,25 @@ namespace SimpleUnitTests
             Assert.Throws<InvalidOperationException>( () => Console.Write( e.Current ) );
             Assert.Throws<InvalidOperationException>( () => e.MoveNext() );
         }
+
+        public void small_linq()
+        {
+            var ll = new List<string>() { "S1", "S2" };
+
+            if( ll.Count() > 0 )
+            {
+                //...
+            }
+
+            var onlyOne = MyLinq.Where( ll, s => s[0] == '1' );
+            var inInt = MyLinq.Select( onlyOne, x => int.Parse( x ) );
+
+            var theMax = ll.Where( s => s[0] == '1' )
+                           .Select( x => int.Parse( x ) )
+                           .Max();
+
+        }
+
+
     }
 }
