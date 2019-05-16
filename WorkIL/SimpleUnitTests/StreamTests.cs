@@ -14,6 +14,7 @@ namespace SimpleUnitTests
     {
         static string ThisFilePath( [CallerFilePath]string p = null ) => p;
 
+        [Test]
         public void copying_stream_to_stream()
         {
             var origin = ThisFilePath();
@@ -24,6 +25,11 @@ namespace SimpleUnitTests
             File.ReadAllBytes( origin )
                 .SequenceEqual( File.ReadAllBytes( target ) )
                 .Should().BeTrue();
+        }
+
+        void CopyFile( string origin, string target )
+        {
+
         }
     }
 }
