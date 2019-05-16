@@ -56,7 +56,7 @@ namespace SimpleUnitTests
 
             File.ReadAllBytes( origin )
                 .SequenceEqual( File.ReadAllBytes( crypted ) )
-                .Should().BeFalse();
+                .Should().BeFalse( "Nothing has been krabouilled!" );
 
             DoUnkrabouille( crypted, restored, "Secret..." );
 

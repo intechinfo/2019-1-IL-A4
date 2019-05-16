@@ -6,6 +6,7 @@ using System.Linq;
 using FluentAssertions;
 using System.Runtime.CompilerServices;
 using System.Text;
+using ITI.Collections;
 
 namespace SimpleUnitTests
 {
@@ -55,7 +56,7 @@ namespace SimpleUnitTests
 
             File.ReadAllBytes( origin )
                 .SequenceEqual( File.ReadAllBytes( crypted ) )
-                .Should().BeFalse();
+                .Should().BeFalse( "Nothing has been krabouilled!" );
 
             DoUnkrabouille( crypted, restored, "Secret..." );
 
@@ -87,12 +88,36 @@ namespace SimpleUnitTests
 
         void DoKrabouille( string origin, string crypted, string passPhrase )
         {
-            throw new NotImplementedException();
+            using( var o = new FileStream( origin, FileMode.Open, FileAccess.Read ) )
+            using( var t = new FileStream( crypted, FileMode.Create, FileAccess.Write ) )
+            using( var k = new KrabouilleStream( t, passPhrase, KrabouilleMode.Krabouille ) )
+            {
+                byte[] buffer = new byte[4096];
+                int len;
+                do
+                {
+                    len = o.Read( buffer, 0, buffer.Length );
+                    k.Write( buffer, 0, len );
+                }
+                while( len == buffer.Length );
+            }
         }
 
         void DoUnkrabouille( string crypted, string restored, string passPhrase )
         {
-            throw new NotImplementedException();
+            using( var o = new FileStream( crypted, FileMode.Open, FileAccess.Read ) )
+            using( var t = new FileStream( restored, FileMode.Create, FileAccess.Write ) )
+            using( var uk = new KrabouilleStream( o, passPhrase, KrabouilleMode.Unkrabouille ) )
+            {
+                byte[] buffer = new byte[4096];
+                int len;
+                do
+                {
+                    len = uk.Read( buffer, 0, buffer.Length );
+                    t.Write( buffer, 0, len );
+                }
+                while( len == buffer.Length );
+            }
         }
     }
 }
