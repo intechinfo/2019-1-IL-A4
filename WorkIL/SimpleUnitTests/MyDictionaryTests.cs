@@ -65,6 +65,26 @@ namespace SimpleUnitTests
             }
         }
 
+        [Test]
+        public void simple_dictionary_supports_foreach()
+        {
+            var d = new MyDictionary<int, int>();
+            for( int i = 0; i < 300; ++i )
+            {
+                d.Add( i, i );
+            }
+            int c = 0;
+            bool[] seen = new bool[300];
+            foreach( var kv in d )
+            {
+                kv.Key.Should().BeInRange( 0, 299 );
+                c++;
+                seen[kv.Key].Should().BeFalse();
+                seen[kv.Key] = true;
+            }
+            c.Should().Be( 300 );
+        }
+
     }
-}
+    }
 

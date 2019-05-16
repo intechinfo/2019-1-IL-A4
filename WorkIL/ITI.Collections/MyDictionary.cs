@@ -133,21 +133,25 @@ namespace ITI.Collections
         class EE : IEnumerator<KeyValuePair<TKey, TValue>>
         {
             readonly MyDictionary<TKey, TValue> _holder;
+            int _idxB;
+            Node _n;
 
             public EE( MyDictionary<TKey, TValue> holder )
             {
                 _holder = holder;
             }
 
-            public KeyValuePair<TKey, TValue> Current => throw new NotImplementedException();
+            public KeyValuePair<TKey, TValue> Current => new KeyValuePair<TKey, TValue>( _n.Key, _n.Value );
 
             object IEnumerator.Current => Current;
 
             public bool MoveNext()
             {
-                throw new NotImplementedException();
+                if( (_n = _n?.Next) != null ) return true;
+                while( _idxB < _holder._buckets.Length
+                        && (_n = _holder._buckets[_idxB++]) == null ) ;
+                return _n != null;
             }
-
 
             public void Dispose()
             {
@@ -162,6 +166,21 @@ namespace ITI.Collections
         public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
         {
             return new EE( this );
+        }
+
+        public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumEasy()
+        {
+            int idxB = 0;
+            Node n;
+            while( idxB < _buckets.Length && (n = _buckets[idxB++]) != null )
+            {
+                do
+                {
+                    yield return new KeyValuePair<TKey, TValue>( n.Key, n.Value );
+                    n = n.Next;
+                }
+                while( n != null );
+            }
         }
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
