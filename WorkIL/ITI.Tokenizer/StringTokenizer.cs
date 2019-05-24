@@ -136,7 +136,14 @@ namespace ITI.Tokenizer
                 case ',': _curToken = TokenType.Comma; break;
                 case '.': _curToken = TokenType.Dot; break;
                 case ';': _curToken = TokenType.SemiColon; break;
-                case ':': _curToken = TokenType.Colon; break;
+                case ':':
+                    if( !IsEnd && Peek() == ':' )
+                    {
+                        _curToken = TokenType.DoubleColon;
+                        Forward();
+                    }
+                    else _curToken = TokenType.Colon;
+                    break;
                 default:
                     {
                         if( Char.IsDigit( c ) )

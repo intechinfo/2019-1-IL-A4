@@ -28,7 +28,7 @@ namespace SimpleUnitTests
         public void terminals( string toParse, string expected )
         {
             StringTokenizer.Parse( toParse )
-                    .SequenceEqual( expected.Split( ',' ).Select( s => Enum.Parse<TokenType>( s ) ) )
+                    .SequenceEqual( expected.Split( ',' ).Select( Enum.Parse<TokenType> ) )
                     .Should().BeTrue();
         }
 
