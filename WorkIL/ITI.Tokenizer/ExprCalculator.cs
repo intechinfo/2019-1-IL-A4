@@ -8,7 +8,24 @@ namespace ITI.Tokenizer
     {
         public static double Compute( string expression )
         {
-            return 0.0;
+            var t = new StringTokenizer( expression );
+            return ComputeFactor( t );
+        }
+
+        static double ComputeFactor( StringTokenizer t )
+        {
+            if( !t.MatchDouble( out var f ) )
+            {
+                if( !t.Match( TokenType.OpenPar ) ) throw new Exception( "Expected number or (." );
+                f = ComputeExpression( t );
+                if( !t.Match( TokenType.ClosePar ) ) throw new Exception( "Expected )." );
+            }
+            return f;
+        }
+
+        static double ComputeExpression( StringTokenizer t )
+        {
+            throw new NotImplementedException();
         }
     }
 }
