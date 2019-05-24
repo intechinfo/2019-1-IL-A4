@@ -15,7 +15,7 @@ namespace SimpleUnitTests
         public void simple_tokens()
         {
             StringTokenizer t = new StringTokenizer( "2 + 96" );
-            t.CurrentToken.Should().Be( TokenType.None );
+            t.Match( TokenType.None ).Should().BeTrue();
             t.MatchInteger( out var i ).Should().BeTrue(); i.Should().Be( 2 );
             t.Match( TokenType.Plus ).Should().BeTrue();
             t.MatchInteger( out i ).Should().BeTrue(); i.Should().Be( 96 );
