@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleUnitTests", "SimpleUn
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ITI.Collections", "ITI.Collections\ITI.Collections.csproj", "{AEC71103-0250-4048-AD31-D7C8A3EAFFCF}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ITI.Tokenizer", "ITI.Tokenizer\ITI.Tokenizer.csproj", "{3B72EB05-D5FB-4E0F-B8CC-A538B167B942}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{AEC71103-0250-4048-AD31-D7C8A3EAFFCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AEC71103-0250-4048-AD31-D7C8A3EAFFCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AEC71103-0250-4048-AD31-D7C8A3EAFFCF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B72EB05-D5FB-4E0F-B8CC-A538B167B942}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B72EB05-D5FB-4E0F-B8CC-A538B167B942}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B72EB05-D5FB-4E0F-B8CC-A538B167B942}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B72EB05-D5FB-4E0F-B8CC-A538B167B942}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
