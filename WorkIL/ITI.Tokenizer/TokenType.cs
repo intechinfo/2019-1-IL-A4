@@ -12,15 +12,16 @@ namespace ITI.Tokenizer
         Number,
         OpenPar,
         ClosePar,
-        SemiColon,
-        Colon,
-        DoubleColon,
-        Comma,
-        Dot,
         OpenSquare,
         CloseSquare,
         OpenBracket,
         CloseBracket,
+
+        Comma,
+        Dot,
+        SemiColon,
+        Colon,
+        DoubleColon,
 
         EndOfInput,
         Error
