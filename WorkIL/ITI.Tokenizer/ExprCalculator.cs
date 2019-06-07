@@ -44,9 +44,22 @@ namespace ITI.Tokenizer
         }
 
         /// <summary>
-        /// facteur → nombre  |  ‘(’  expression  ‘)’ 
+        /// facteur ==> PositiveFacteur | '-' PositiveFacteur
         /// </summary>
         static double ComputeFactor( StringTokenizer t )
+        {
+            if( t.Match( TokenType.Minus ) )
+            {
+                return -ComputePositiveFactor( t );
+            }
+            return ComputePositiveFactor( t );
+        }
+
+
+        /// <summary>
+        /// positiveFacteur → nombre  |  ‘(’  expression  ‘)’ 
+        /// </summary>
+        static double ComputePositiveFactor( StringTokenizer t )
         {
             if( !t.MatchDouble( out var f ) )
             {
