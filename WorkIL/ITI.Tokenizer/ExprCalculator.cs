@@ -13,6 +13,37 @@ namespace ITI.Tokenizer
             return t.GetNextToken() == TokenType.EndOfInput ? 0.0 : ComputeExpression( t );
         }
 
+
+        /// <summary>
+        /// expression → terme  [opérateur-additif  terme]*
+        /// </summary>
+        static double ComputeExpression( StringTokenizer t )
+        {
+            var expr = ComputeTerm( t );
+            while( t.CurrentToken == TokenType.Plus
+                    || t.CurrentToken == TokenType.Minus )
+            {
+                if( t.Match( TokenType.Plus ) ) expr += ComputeTerm( t );
+                if( t.Match( TokenType.Minus ) ) expr -= ComputeTerm( t );
+            }
+            return expr;
+        }
+
+        /// <summary>
+        /// terme → facteur [opérateur-multiplicatif  facteur]*
+        /// </summary>
+        static double ComputeTerm( StringTokenizer t )
+        {
+            var fact = ComputeFactor( t );
+            while( t.CurrentToken == TokenType.Mult
+                    || t.CurrentToken == TokenType.Div )
+            {
+                if( t.Match( TokenType.Mult ) ) fact *= ComputeFactor( t );
+                if( t.Match( TokenType.Div ) ) fact /= ComputeFactor( t );
+            }
+            return fact;
+        }
+
         /// <summary>
         /// facteur → nombre  |  ‘(’  expression  ‘)’ 
         /// </summary>
@@ -26,28 +57,5 @@ namespace ITI.Tokenizer
             }
             return f;
         }
-
-        /// <summary>
-        /// expression → terme  opérateur-additif  expression  |  terme 
-        /// </summary>
-        static double ComputeExpression( StringTokenizer t )
-        {
-            var expr = ComputeTerm( t );
-            if( t.Match( TokenType.Plus ) ) expr += ComputeExpression( t );
-            if( t.Match( TokenType.Minus ) ) expr -= ComputeExpression( t );
-            return expr;
-        }
-
-        /// <summary>
-        /// terme → facteur opérateur-multiplicatif  terme  |  facteur
-        /// </summary>
-        static double ComputeTerm( StringTokenizer t )
-        {
-            var fact = ComputeFactor( t );
-            if( t.Match( TokenType.Mult ) ) fact *= ComputeTerm( t );
-            if( t.Match( TokenType.Div ) ) fact /= ComputeTerm( t );
-            return fact;
-        }
-
     }
 }
