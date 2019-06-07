@@ -13,7 +13,6 @@ namespace ITI.Tokenizer
             return t.GetNextToken() == TokenType.EndOfInput ? 0.0 : ComputeExpression( t );
         }
 
-
         /// <summary>
         /// expression → terme  [opérateur-additif  terme]*
         /// </summary>
