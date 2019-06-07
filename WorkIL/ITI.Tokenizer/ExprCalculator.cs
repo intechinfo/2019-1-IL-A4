@@ -9,9 +9,13 @@ namespace ITI.Tokenizer
         public static double Compute( string expression )
         {
             var t = new StringTokenizer( expression );
-            return ComputeFactor( t );
+            // With this tokenizer, head must be forwarded at first.
+            return t.GetNextToken() == TokenType.EndOfInput ? 0.0 : ComputeExpression( t );
         }
 
+        /// <summary>
+        /// facteur → nombre  |  ‘(’  expression  ‘)’ 
+        /// </summary>
         static double ComputeFactor( StringTokenizer t )
         {
             if( !t.MatchDouble( out var f ) )
@@ -23,9 +27,27 @@ namespace ITI.Tokenizer
             return f;
         }
 
+        /// <summary>
+        /// expression → terme  opérateur-additif  expression  |  terme 
+        /// </summary>
         static double ComputeExpression( StringTokenizer t )
         {
-            throw new NotImplementedException();
+            var expr = ComputeTerm( t );
+            if( t.Match( TokenType.Plus ) ) expr += ComputeExpression( t );
+            if( t.Match( TokenType.Minus ) ) expr -= ComputeExpression( t );
+            return expr;
         }
+
+        /// <summary>
+        /// terme → facteur opérateur-multiplicatif  terme  |  facteur
+        /// </summary>
+        static double ComputeTerm( StringTokenizer t )
+        {
+            var fact = ComputeFactor( t );
+            if( t.Match( TokenType.Mult ) ) fact *= ComputeTerm( t );
+            if( t.Match( TokenType.Div ) ) fact /= ComputeTerm( t );
+            return fact;
+        }
+
     }
 }
