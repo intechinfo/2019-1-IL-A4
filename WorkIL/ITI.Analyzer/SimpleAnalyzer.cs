@@ -44,8 +44,7 @@ namespace ITI.Analyzer
             while( t.CurrentToken == TokenType.Plus
                     || t.CurrentToken == TokenType.Minus )
             {
-                expr = new BinaryNode( t.CurrentToken, expr, ParseTerm( t ) );
-                t.GetNextToken();
+                expr = new BinaryNode( t.GetCurrentTypeAndForward(), expr, ParseTerm( t ) );
             }
             return expr;
         }
@@ -56,8 +55,7 @@ namespace ITI.Analyzer
             while( t.CurrentToken == TokenType.Mult
                     || t.CurrentToken == TokenType.Div )
             {
-                fact = new BinaryNode( t.CurrentToken, fact, ParseFactor( t ) );
-                t.GetNextToken();
+                fact = new BinaryNode( t.GetCurrentTypeAndForward(), fact, ParseFactor( t ) );
             }
             return fact;
         }

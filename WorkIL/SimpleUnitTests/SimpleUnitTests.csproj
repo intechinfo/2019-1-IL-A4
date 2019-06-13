@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ITI.Analyzer\ITI.Analyzer.csproj" />
     <ProjectReference Include="..\ITI.Collections\ITI.Collections.csproj" />
     <ProjectReference Include="..\ITI.Tokenizer\ITI.Tokenizer.csproj" />
   </ItemGroup>

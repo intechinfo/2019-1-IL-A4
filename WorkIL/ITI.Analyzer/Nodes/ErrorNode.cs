@@ -17,5 +17,7 @@ namespace ITI.Analyzer
         }
 
         public string Message { get; }
+
+        public override string ToString() => $"Error: {Message}";
     }
 }

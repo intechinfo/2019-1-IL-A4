@@ -111,6 +111,13 @@ namespace ITI.Tokenizer
             return false;
         }
 
+        public TokenType GetCurrentTypeAndForward()
+        {
+            var t = CurrentToken;
+            GetNextToken();
+            return t;
+        }
+
         public TokenType GetNextToken()
         {
 

@@ -19,5 +19,8 @@ namespace ITI.Analyzer
         public Node Left { get; }
 
         public Node Right { get; }
+
+        public override string ToString() => $"({Type} {Left} {Right})";
+
     }
 }

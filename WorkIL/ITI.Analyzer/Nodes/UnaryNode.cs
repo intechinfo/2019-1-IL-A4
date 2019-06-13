@@ -16,5 +16,8 @@ namespace ITI.Analyzer
         public TokenType Type { get; }
 
         public Node Operand { get; }
+
+        public override string ToString() => $"({Type} {Operand})";
+
     }
 }

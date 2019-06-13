@@ -19,5 +19,7 @@ namespace ITI.Analyzer
         public Node WhenTrue { get; }
 
         public Node WhenFalse { get; }
+
+        public override string ToString() => $"({Condition} ? {WhenTrue} : {WhenFalse})";
     }
 }
