@@ -26,6 +26,15 @@ namespace ITI.Tokenizer
                 if( t.Match( TokenType.Minus ) ) expr -= ComputeTerm( t );
             }
             return expr;
+
+            //
+            // expression → terme | terme opérateur-additif terme
+            // ==> only ONE primary/root addition/substraction is handled here!
+            //
+            //var expr = ComputeTerm( t );
+            //if( t.Match( TokenType.Plus ) ) expr += ComputeTerm( t );
+            //else if( t.Match( TokenType.Minus ) ) expr -= ComputeTerm( t );
+            //return expr;
         }
 
         /// <summary>
