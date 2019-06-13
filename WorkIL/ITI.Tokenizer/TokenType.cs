@@ -22,6 +22,7 @@ namespace ITI.Tokenizer
         SemiColon,
         Colon,
         DoubleColon,
+        QuestionMark,
 
         EndOfInput,
         Error

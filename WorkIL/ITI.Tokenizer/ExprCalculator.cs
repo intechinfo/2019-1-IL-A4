@@ -10,7 +10,26 @@ namespace ITI.Tokenizer
         {
             var t = new StringTokenizer( expression );
             // With this tokenizer, head must be forwarded at first.
-            return t.GetNextToken() == TokenType.EndOfInput ? 0.0 : ComputeExpression( t );
+            return t.GetNextToken() == TokenType.EndOfInput ? 0.0 : ComputeCondExpression( t );
+        }
+
+        /// <summary>
+        /// condExpression → expression [? condExpression : condExpression]
+        /// </summary>
+        static double ComputeCondExpression( StringTokenizer t )
+        {
+            var expr = ComputeExpression( t );
+            if( t.Match( TokenType.QuestionMark ) )
+            {
+                var then = ComputeCondExpression( t );
+                if( !t.Match( TokenType.Colon ) )
+                {
+                    throw new Exception( "Expected : of ternary operator." );
+                }
+                var @else = ComputeCondExpression( t );
+                expr = expr > 0 ? then : @else;
+            }
+            return expr;
         }
 
         /// <summary>

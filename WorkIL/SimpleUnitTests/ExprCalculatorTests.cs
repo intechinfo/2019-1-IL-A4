@@ -26,8 +26,9 @@ namespace SimpleUnitTests
         [TestCase( "3+5 ? 80 : -6", 80.0 )]
         [TestCase( "3*-5 ? 8 : -6", -6.0 )]
         [TestCase( "-1 ? 2 ? 3 : 4 : 5", 5.0 )]
-        [TestCase( "-1 ? 2 ? 3 : 4 : 5 ? 6 : 7", 7.0 )]
-        [TestCase( "1 ? 2 ? 3 : 4 : 5 ? 6 : 7", 4.0 )]
+        [TestCase( "-1 ? 2 ? 3 : 4 : 5 ? 6 : 7", 6.0 )]
+        [TestCase( "-1 ? 2 ? 3 : 4 : -5 ? 6 : 7", 7.0 )]
+        [TestCase( "1 ? 2 ? 3 : 4 : 5 ? 6 : 7", 3.0 )]
         public void test_conditional( string expression, double expected )
         {
             ExprCalculator.Compute( expression ).Should().Be( expected );

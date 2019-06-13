@@ -123,6 +123,7 @@ namespace ITI.Tokenizer
             }
             switch( c )
             {
+                case '?': _curToken = TokenType.QuestionMark; break;
                 case '+': _curToken = TokenType.Plus; break;
                 case '-': _curToken = TokenType.Minus; break;
                 case '*': _curToken = TokenType.Mult; break;
