@@ -19,5 +19,7 @@ namespace ITI.Analyzer
         public string Message { get; }
 
         public override string ToString() => $"Error: {Message}";
+
+        internal override void Accept( NodeVisitor v ) => v.Visit( this );
     }
 }

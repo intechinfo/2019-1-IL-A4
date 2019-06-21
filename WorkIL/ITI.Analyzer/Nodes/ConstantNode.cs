@@ -14,5 +14,7 @@ namespace ITI.Analyzer
         public double Value { get; }
 
         public override string ToString() => Value.ToString();
+
+        internal override void Accept( NodeVisitor v ) => v.Visit( this );
     }
 }

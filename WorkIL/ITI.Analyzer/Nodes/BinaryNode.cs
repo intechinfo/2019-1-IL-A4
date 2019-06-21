@@ -22,5 +22,8 @@ namespace ITI.Analyzer
 
         public override string ToString() => $"({Type} {Left} {Right})";
 
+        internal override void Accept( NodeVisitor v ) => v.Visit( this );
+
+
     }
 }

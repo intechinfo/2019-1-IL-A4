@@ -19,5 +19,7 @@ namespace ITI.Analyzer
 
         public override string ToString() => $"({Type} {Operand})";
 
+        internal override void Accept( NodeVisitor v ) => v.Visit( this );
+
     }
 }
