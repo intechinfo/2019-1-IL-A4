@@ -32,5 +32,23 @@ namespace SimpleUnitTests
                     .Should().BeTrue();
         }
 
+        [TestCase( "_1", "_1" )]
+        [TestCase( "x-y+z", "x,y,z" )]
+        [TestCase( "a12-(y988+zAZ)", "a12,y988,zAZ" )]
+        public void parsing_identifiers( string toParse, string commaSeparatedIdentifiers )
+        {
+            var identifiers = commaSeparatedIdentifiers.Split( ',' );
+            int i = 0;
+            StringTokenizer t = new StringTokenizer( "2 + 96" );
+            while( t.GetNextToken() != TokenType.EndOfInput )
+            {
+                if( t.CurrentToken == TokenType.Identifier )
+                {
+                    identifiers[i++].Should().Be( t.CurrentBuffer );
+                }
+            }
+        }
+
+
     }
 }

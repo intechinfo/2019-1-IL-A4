@@ -7,10 +7,12 @@ namespace ITI.Tokenizer
 {
     public class StringTokenizer
     {
+        readonly StringBuilder _buffer;
         string _toParse;
         int _pos;
         int _maxPos;
         double _doubleValue;
+
         TokenType _curToken;
 
         public StringTokenizer( string s )
@@ -29,6 +31,7 @@ namespace ITI.Tokenizer
             _toParse = s;
             _pos = startIndex;
             _maxPos = startIndex + count;
+            _buffer = new StringBuilder();
         }
 
         public static IEnumerable<TokenType> Parse( string toParse )
@@ -60,10 +63,13 @@ namespace ITI.Tokenizer
             get { return _pos >= _maxPos; }
         }
 
-        public TokenType CurrentToken
-        {
-            get { return _curToken; }
-        }
+        public TokenType CurrentToken => _curToken;
+
+        /// <summary>
+        /// Gets the current buffer content.
+        /// Must be called only on <see cref="TokenType.Identifier"/>.
+        /// </summary>
+        public string CurrentBuffer => _buffer.ToString();
 
         public bool Match( TokenType t )
         {
@@ -108,6 +114,18 @@ namespace ITI.Tokenizer
                 return true;
             }
             value = 0;
+            return false;
+        }
+
+        public bool MatchIdentifier( out string identifier )
+        {
+            if( _curToken == TokenType.Identifier )
+            {
+                identifier = _buffer.ToString();
+                GetNextToken();
+                return true;
+            }
+            identifier = null;
             return false;
         }
 
@@ -164,6 +182,17 @@ namespace ITI.Tokenizer
                                 Forward();
                             }
                             _doubleValue = val;
+                        }
+                        else if( c == '_' || Char.IsLetter( c ) )
+                        {
+                            _buffer.Clear();
+                            _buffer.Append( c );
+                            while( !IsEnd && (c = Peek()) == '_' || Char.IsLetterOrDigit( c ) )
+                            {
+                                _buffer.Append( c );
+                                Read();
+                            }
+                            _curToken = TokenType.Identifier;
                         }
                         else _curToken = TokenType.Error;
                         break;

@@ -10,6 +10,7 @@ namespace ITI.Tokenizer
         Mult,
         Div,
         Number,
+        Identifier,
         OpenPar,
         ClosePar,
         OpenSquare,
