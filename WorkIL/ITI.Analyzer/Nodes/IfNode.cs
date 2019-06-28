@@ -23,5 +23,8 @@ namespace ITI.Analyzer
         public override string ToString() => $"({Condition} ? {WhenTrue} : {WhenFalse})";
 
         internal override void Accept( NodeVisitor v ) => v.Visit( this );
+
+        internal override Node Accept( MutationVisitor v ) => v.Visit( this );
+
     }
 }

@@ -7,6 +7,8 @@ namespace ITI.Analyzer
     public abstract class Node
     {
 
-        internal abstract void Accept( NodeVisitor v ); 
+        internal abstract void Accept( NodeVisitor v );
+
+        internal abstract Node Accept( MutationVisitor v ); 
     }
 }

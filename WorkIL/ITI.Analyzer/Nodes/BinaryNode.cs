@@ -24,6 +24,7 @@ namespace ITI.Analyzer
 
         internal override void Accept( NodeVisitor v ) => v.Visit( this );
 
+        internal override Node Accept( MutationVisitor v ) => v.Visit( this );
 
     }
 }
