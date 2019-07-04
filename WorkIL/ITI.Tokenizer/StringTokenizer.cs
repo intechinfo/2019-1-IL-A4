@@ -187,7 +187,7 @@ namespace ITI.Tokenizer
                         {
                             _buffer.Clear();
                             _buffer.Append( c );
-                            while( !IsEnd && (c = Peek()) == '_' || Char.IsLetterOrDigit( c ) )
+                            while( !IsEnd && ((c = Peek()) == '_' || Char.IsLetterOrDigit( c )) )
                             {
                                 _buffer.Append( c );
                                 Read();

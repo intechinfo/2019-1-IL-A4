@@ -21,9 +21,6 @@ namespace SimpleUnitTests
             computer.VisitNode( nV );
             computer.Result.Should().Be( result );
         }
-
-        // n	{(Minus (Plus 3 7) (Plus (Mult 9 (Minus 12)) 3))}
-        // nV	{(Plus (Minus 3 7) (Minus (Mult 9 12) 3))}
     }
 
 }

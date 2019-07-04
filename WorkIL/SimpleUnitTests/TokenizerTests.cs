@@ -39,7 +39,7 @@ namespace SimpleUnitTests
         {
             var identifiers = commaSeparatedIdentifiers.Split( ',' );
             int i = 0;
-            StringTokenizer t = new StringTokenizer( "2 + 96" );
+            StringTokenizer t = new StringTokenizer( toParse );
             while( t.GetNextToken() != TokenType.EndOfInput )
             {
                 if( t.CurrentToken == TokenType.Identifier )

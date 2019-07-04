@@ -17,5 +17,6 @@ namespace SimpleUnitTests
             var a = new SimpleAnalyzer();
             a.Parse( toParse ).ToString().Should().Be( toString );
         }
+
     }
 }
