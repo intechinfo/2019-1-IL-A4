@@ -23,7 +23,8 @@ namespace SimpleUnitTests
             computer.Result.Should().Be( result );
         }
 
-        [TestCase( "x - -4", "(x + 4) " )]
+        [TestCase( "10 + 4 - 7 * (3 + 5)", "-42" )]
+        [TestCase( "x - -4", "(x + 4)" )]
         [TestCase( "50 + 6 + x / x", "57" )]
         public void optimizer_in_action( string input, string optimPrint )
         {
