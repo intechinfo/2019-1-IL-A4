@@ -18,6 +18,10 @@ namespace ITI.Analyzer
         {
         }
 
+        public virtual void Visit( IdentifierNode n )
+        {
+        }
+
         public virtual void Visit( ErrorNode n )
         {
         }

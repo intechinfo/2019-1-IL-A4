@@ -35,6 +35,11 @@ namespace SimpleUnitTests
             _buffer.Append( n.Value );
         }
 
+        public override void Visit( IdentifierNode n )
+        {
+            _buffer.Append( n.Identifier );
+        }
+
         public override void Visit( IfNode n )
         {
             _buffer.Append( " (" );

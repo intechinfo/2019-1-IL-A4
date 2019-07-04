@@ -9,6 +9,18 @@ namespace SimpleUnitTests
 {
     public class VisitorTests
     {
+        [TestCase( "3*x+78", 987, 3.0 * 987 + 78 )]
+        [TestCase( "3*(x-4/x)+(x*7)", 78, 3.0 * (78.0 - 4 / 78.0) + (78.0 * 7) )]
+        public void with_x_variable( string toParse, double x, double expected )
+        {
+            var n = new SimpleAnalyzer().Parse( toParse );
+            var v = new ComputeVisitor( name => name == "x"
+                                                    ? (double?)x
+                                                    : null );
+            v.VisitNode( n );
+            v.Result.Should().Be( expected );
+        }
+
         [Test]
         public void print_visitor_in_action()
         {

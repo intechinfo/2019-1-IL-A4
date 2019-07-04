@@ -72,6 +72,7 @@ namespace ITI.Analyzer
         Node ParsePositiveFactor( StringTokenizer t )
         {
             if( t.MatchDouble( out var f ) ) return new ConstantNode( f );
+            if( t.MatchIdentifier( out var id ) ) return new IdentifierNode( id );
             if( t.Match( TokenType.OpenPar ) )
             {
                 Node expr = ParseCondExpression( t );

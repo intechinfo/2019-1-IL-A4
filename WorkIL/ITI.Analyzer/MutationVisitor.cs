@@ -20,6 +20,11 @@ namespace ITI.Analyzer
             return n;
         }
 
+        public virtual Node Visit( IdentifierNode n )
+        {
+            return n;
+        }
+
         public virtual Node Visit( ErrorNode n )
         {
             return n;
