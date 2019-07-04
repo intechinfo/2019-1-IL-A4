@@ -1,6 +1,7 @@
 using ITI.Tokenizer;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 
 namespace ITI.Analyzer
@@ -9,6 +10,7 @@ namespace ITI.Analyzer
     {
         public UnaryNode( TokenType type, Node operand )
         {
+            Debug.Assert( type == TokenType.Minus );
             Type = type;
             Operand = operand ?? throw new ArgumentNullException( nameof( operand ) );
         }
