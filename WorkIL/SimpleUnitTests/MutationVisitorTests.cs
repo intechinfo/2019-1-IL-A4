@@ -23,6 +23,19 @@ namespace SimpleUnitTests
             computer.Result.Should().Be( result );
         }
 
+        [TestCase( "x - -4", "(x + 4) " )]
+        [TestCase( "50 + 6 + x / x", "57" )]
+        public void optimizer_in_action( string input, string optimPrint )
+        {
+            var n = new SimpleAnalyzer().Parse( input );
+
+            var optim = new OptimizationVisitor().VisitNode( n );
+
+            var printer = new PrintVisitor();
+            printer.VisitNode( optim );
+            printer.ToString().Should().Be( optimPrint );
+        }
+
 
     }
 
